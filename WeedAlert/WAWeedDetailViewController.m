@@ -13,7 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *primaryImageView;
 @property (weak, nonatomic) IBOutlet UILabel *properNameLabel;
-@property (weak, nonatomic) IBOutlet UIWebView *descriptionWebView;
+@property (strong, nonatomic) IBOutlet UIWebView *descriptionWebView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic) float webViewHeight;
 
@@ -38,9 +38,22 @@
 
     [super viewDidLoad];
     
+    
+    
+    
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
     if(self.weed) {
         self.nameLabel.text = [@"Name: " stringByAppendingString:self.weed.name];
         self.properNameLabel.text = [@"Proper Name: " stringByAppendingString:self.weed.properName];
+        
+        self.descriptionWebView = [[UIWebView alloc] initWithFrame:CGRectMake(21, 214, 278, 276)];
+        
+        [self.scrollView addSubview:self.descriptionWebView];
         
         [self.descriptionWebView setDelegate:self];
         [self.descriptionWebView.scrollView setScrollEnabled:NO];
@@ -49,29 +62,42 @@
         self.navigationItem.title = self.weed.name;
         
     }
-        NSLog(@"VDL - ScrollView contentSize: %f - %f", self.scrollView.contentSize.height, self.scrollView.contentSize.width);
+    NSLog(@"VDL - ScrollView contentSize: %f - %f", self.scrollView.contentSize.height, self.scrollView.contentSize.width);
     
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [self.descriptionWebView removeFromSuperview];
 }
 
 
 - (void)viewDidLayoutSubviews {
-        NSLog(@"viewDidLayoutSubviews");
+}
+
+
+- (void)resizeWebView {
+//    NSLog(@"viewDidLayoutSubviews");
     self.scrollView.delegate = self;
     [self.scrollView setScrollEnabled:YES];
-    
-    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width,
-                                             self.view.frame.size.height + self.webViewHeight);
     
     [self.descriptionWebView setFrame:(CGRect){
         self.descriptionWebView.frame.origin.x,
         self.descriptionWebView.frame.origin.y,
         self.descriptionWebView.frame.size.width,
         self.webViewHeight}];
-
+    
+    
+    // 66points = status bar + nav bar height
+    // 640 points = 1/2 height of the screen
+    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width,
+                                             self.view.frame.size.height + self.webViewHeight + 66 + 640);
+    
     NSLog(@"VDLS - ScrollView contentSize: %f - %f", self.scrollView.contentSize.height, self.scrollView.contentSize.width);
     NSLog(@"VDLS - DescriptionWebView frame: %f - %f", self.descriptionWebView.frame.size.height, self.descriptionWebView.frame.size.width);
-}
 
+}
 
 #pragma mark UIWebViewDelegate
 
@@ -85,7 +111,7 @@
     NSLog(@"View size: %f - %f", self.view.frame.size.height, self.view.frame.size.width);
 
     
-    
+    [self resizeWebView];
 }
 
 
