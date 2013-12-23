@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3400" systemVersion="13A603" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Family" representedClassName="Family" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="weeds" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Weed" inverseName="family" inverseEntity="Weed" syncable="YES"/>
+    </entity>
+    <entity name="Weed" representedClassName="Weed" syncable="YES">
+        <attribute name="akaNames" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="controlTip" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="herbUse" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="management" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="properName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="searchNames" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="family" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Family" inverseName="weeds" inverseEntity="Family" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Family" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Weed" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
+</model>

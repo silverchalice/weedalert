@@ -7,12 +7,30 @@
 //
 
 #import "WAAppDelegate.h"
+#import "Weed.h"
+#import "WAViewController.h"
+#import <CoreData/CoreData.h>
+
+@interface WAAppDelegate ()
+
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
+- (void)initializeCoreDataStack;
+
+@end
 
 @implementation WAAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    [self initializeCoreDataStack];
+
+    id navigationController = [[self window] rootViewController];
+    WAViewController *controller = (WAViewController *)[navigationController topViewController];
+    controller.managedObjectContext = self.managedObjectContext;
+    
     return YES;
 }
 							
@@ -41,6 +59,81 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+- (void)contextInitialized {
+
+    [self populateCoreData];
+
+}
+
+- (void)initializeCoreDataStack {
+    
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"WeedAlertModel" withExtension:@"mom"];
+    ZAssert(modelURL, @"Failed to find model URL");
+    
+    NSManagedObjectModel *mom = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    ZAssert(mom, @"Failed to initialize model");
+    
+    NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
+    ZAssert(psc, @"Failed to initialize persistent store coordinator");
+  
+    NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    [moc setPersistentStoreCoordinator:psc];
+    self.managedObjectContext = moc;
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(queue, ^{
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSArray *directories = [fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+        
+        NSURL *storeUrl = [[directories lastObject] URLByAppendingPathComponent:@"WeedAlert.sqlite"];
+        
+        
+        if (![[NSFileManager defaultManager] fileExistsAtPath:[storeUrl path]]) {
+            NSLog(@"Loading preloaded database");
+            NSURL *preloadURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"WeedAlertImporter" ofType:@"sqlite"]];
+            NSError* err = nil;
+            
+            NSLog(@"Preload URL : %@", [preloadURL description]);
+            
+            if (![[NSFileManager defaultManager] copyItemAtURL:preloadURL toURL:storeUrl error:&err]) {
+                NSLog(@"Oops, could copy preloaded data");
+            }
+        }
+        
+        NSError *error = nil;
+        NSPersistentStore *store = [psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error];
+        if(!store) {
+            ALog(@"Error adding persistent store to coordinator %@\n%@", [error localizedDescription], [error userInfo]);
+        }
+        
+        
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Weed"
+                                                  inManagedObjectContext:moc];
+        [fetchRequest setEntity:entity];
+        NSArray *fetchedObjects = [moc executeFetchRequest:fetchRequest error:&error];
+        for (Weed *weed in fetchedObjects) {
+            NSLog(@"Name: %@", weed.name);
+            NSLog(@"Proper Names: %@", weed.properName);
+        }
+
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self contextInitialized];
+        });
+        
+    });
+}
+
+- (void)populateCoreData {
+    NSLog(@"Populating Core Data...");
+   
+    
+    
 }
 
 @end
