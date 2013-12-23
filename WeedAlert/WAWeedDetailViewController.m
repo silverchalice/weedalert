@@ -52,17 +52,25 @@
         self.properNameLabel.text = [@"Proper Name: " stringByAppendingString:self.weed.properName];
         
         self.descriptionWebView = [[UIWebView alloc] initWithFrame:CGRectMake(21, 214, 278, 276)];
-        
-        [self.scrollView addSubview:self.descriptionWebView];
+        self.descriptionWebView.userInteractionEnabled = NO;
         
         [self.descriptionWebView setDelegate:self];
         [self.descriptionWebView.scrollView setScrollEnabled:NO];
-        [self.descriptionWebView loadHTMLString:self.weed.longDescription baseURL:nil];
+        
+        [self.scrollView addSubview:self.descriptionWebView];
+        
         
         self.navigationItem.title = self.weed.name;
         
     }
     NSLog(@"VDL - ScrollView contentSize: %f - %f", self.scrollView.contentSize.height, self.scrollView.contentSize.width);
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self.descriptionWebView loadHTMLString:self.weed.longDescription baseURL:nil];
     
 }
 
