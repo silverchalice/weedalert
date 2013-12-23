@@ -47,6 +47,12 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
     if(self.weed) {
         self.nameLabel.text = [@"Name: " stringByAppendingString:self.weed.name];
         self.properNameLabel.text = [@"Proper Name: " stringByAppendingString:self.weed.properName];
@@ -64,11 +70,8 @@
         
     }
     NSLog(@"VDL - ScrollView contentSize: %f - %f", self.scrollView.contentSize.height, self.scrollView.contentSize.width);
-    
-}
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+    
     
     [self.descriptionWebView loadHTMLString:self.weed.longDescription baseURL:nil];
     
@@ -100,7 +103,7 @@
     // 66points = status bar + nav bar height
     // 640 points = 1/2 height of the screen
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width,
-                                             self.view.frame.size.height + self.webViewHeight + 66 + 640);
+                                             self.view.frame.size.height + self.descriptionWebView.frame.size.height - (self.scrollView.frame.size.height - self.descriptionWebView.frame.origin.y) );
     
     NSLog(@"VDLS - ScrollView contentSize: %f - %f", self.scrollView.contentSize.height, self.scrollView.contentSize.width);
     NSLog(@"VDLS - DescriptionWebView frame: %f - %f", self.descriptionWebView.frame.size.height, self.descriptionWebView.frame.size.width);
