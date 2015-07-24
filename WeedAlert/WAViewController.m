@@ -9,6 +9,11 @@
 #import "WAViewController.h"
 #import "WAWeedListViewController.h"
 
+#import "WAByNameTableViewController.h"
+#import "WAByAppearanceViewController.h"
+#import "WAByRegionTableViewController.h"
+
+
 @interface WAViewController ()
 
 @end
@@ -18,6 +23,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -38,26 +45,30 @@
 
 - (void)byNameSegue:(UIStoryboardSegue *)segue {
     NSLog(@"Entering byNameSegue...");
-    WAWeedListViewController *destViewController = (WAWeedListViewController *)segue.destinationViewController;
-    destViewController.navigationItem.title = @"Weeds by Name";
+    WAByNameTableViewController *destViewController = (WAByNameTableViewController *)segue.destinationViewController;
+    //destViewController.navigationItem.title = @"Weeds by Name";
     destViewController.managedObjectContext = self.managedObjectContext;
 }
 
 - (void)byAppearanceSegue:(UIStoryboardSegue *)segue {
     NSLog(@"Entering byAppearanceSegue...");
-    WAWeedListViewController *destViewController = (WAWeedListViewController *)segue.destinationViewController;
+    WAByAppearanceViewController *destViewController = (WAByAppearanceViewController *)segue.destinationViewController;
         destViewController.navigationItem.title = @"Weeds by Appearance";
     destViewController.managedObjectContext = self.managedObjectContext;
 }
 
 - (void)byRegionSegue:(UIStoryboardSegue *)segue {
     NSLog(@"Entering byRegionSegue...");
-    WAWeedListViewController *destViewController = (WAWeedListViewController *)segue.destinationViewController;
+    WAByRegionTableViewController *destViewController = (WAByRegionTableViewController *)segue.destinationViewController;
         destViewController.navigationItem.title = @"Weeds by Region";
     destViewController.managedObjectContext = self.managedObjectContext;
 }
 
 -(IBAction)exitList:(UIStoryboardSegue *)segue {
+    
+}
+
+- (IBAction)exitDetailView:(UIStoryboardSegue *)sender {
     
 }
 

@@ -12,5 +12,6 @@
 @interface WAWeedListViewController : UITableViewController
 
 @property NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSPredicate *filterPredicate;
 
 @end

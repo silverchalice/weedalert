@@ -10,6 +10,7 @@
 #import "Weed.h"
 #import "WAViewController.h"
 #import <CoreData/CoreData.h>
+#import <HockeySDK/HockeySDK.h>
 
 @interface WAAppDelegate ()
 
@@ -30,6 +31,11 @@
     id navigationController = [[self window] rootViewController];
     WAViewController *controller = (WAViewController *)[navigationController topViewController];
     controller.managedObjectContext = self.managedObjectContext;
+    
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"0d06a469f9f0fb7b042122a6edda0614"];
+    [[BITHockeyManager sharedHockeyManager] startManager];
+    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
+
     
     return YES;
 }
@@ -117,7 +123,7 @@
         NSArray *fetchedObjects = [moc executeFetchRequest:fetchRequest error:&error];
         for (Weed *weed in fetchedObjects) {
             NSLog(@"Name: %@", weed.name);
-            NSLog(@"Proper Names: %@", weed.properName);
+            NSLog(@"BTR: %@,%@,%@,%@,%@", weed.atr1, weed.atr2, weed.atr3, weed.atr4, weed.atr5);
         }
 
         

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Weed.h"
 
-@interface WAWeedDetailViewController : UIViewController
+@interface WAWeedDetailViewController : UITableViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 - (void) setWeed: (Weed *)weed;
 

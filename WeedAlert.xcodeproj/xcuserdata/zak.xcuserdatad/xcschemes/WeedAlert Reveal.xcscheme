@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "31D7F2BD1864F9F3009E82F7"
                BuildableName = "WeedAlert copy.app"
-               BlueprintName = "WeedAlert (Reveal)"
+               BlueprintName = "WeedAlert-Reveal"
                ReferencedContainer = "container:WeedAlert.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -34,7 +34,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "31D7F2BD1864F9F3009E82F7"
             BuildableName = "WeedAlert copy.app"
-            BlueprintName = "WeedAlert (Reveal)"
+            BlueprintName = "WeedAlert-Reveal"
             ReferencedContainer = "container:WeedAlert.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -53,7 +53,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "31D7F2BD1864F9F3009E82F7"
             BuildableName = "WeedAlert copy.app"
-            BlueprintName = "WeedAlert (Reveal)"
+            BlueprintName = "WeedAlert-Reveal"
             ReferencedContainer = "container:WeedAlert.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -71,7 +71,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "31D7F2BD1864F9F3009E82F7"
             BuildableName = "WeedAlert copy.app"
-            BlueprintName = "WeedAlert (Reveal)"
+            BlueprintName = "WeedAlert-Reveal"
             ReferencedContainer = "container:WeedAlert.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

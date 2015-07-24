@@ -30,16 +30,29 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationItem.backBarButtonItem =
+    [[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                     style:UIBarButtonItemStylePlain
+                                    target:nil
+                                    action:nil];
 }
 
 
 - (NSFetchedResultsController *)fetchedResultsController {
+    
     if(!_fetchedResultsController) {
         NSManagedObjectContext *moc = self.managedObjectContext;
         NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Weed"];
         NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         
         [fetchRequest setSortDescriptors:@[sort]];
+        
+        if(self.filterPredicate) {
+            NSLog(@"setting filterPredicate: %@", [self.filterPredicate description]);
+            [fetchRequest setPredicate:self.filterPredicate];
+        }
+        
         NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:nil cacheName:@"Master"];
         _fetchedResultsController.delegate = self;
         
@@ -61,7 +74,7 @@
         UITableViewCell *cell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         Weed *weed = [self.fetchedResultsController objectAtIndexPath:indexPath];
-
+        
         WAWeedDetailViewController *detailViewController = (WAWeedDetailViewController *)segue.destinationViewController;
         [detailViewController setWeed:weed];
     }
@@ -77,23 +90,41 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     id<NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    
-    return [sectionInfo numberOfObjects];
+ 
+    return ([self.fetchedResultsController.fetchedObjects count] > 0 ? [sectionInfo numberOfObjects] : 1);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
-    Weed *weed = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WeedCell"];
-    cell.textLabel.text = weed.name;
+    UITableViewCell *cell = nil;
     
+    if([self.fetchedResultsController.fetchedObjects count] == 0) {
+        
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NoResults"];
+        cell.textLabel.text = @"No Results Found";
+        
+    } else {
+        Weed *weed = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        cell = [self.tableView dequeueReusableCellWithIdentifier:@"WeedCell"];
+        
+        if(!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"WeedCell"];
+        }
+        
+        UILabel *nameLabel = (UILabel *)[cell viewWithTag:100];
+        UILabel *properNameLabel = (UILabel *)[cell viewWithTag:101];
+        UIImageView *weedImageView = (UIImageView *)[cell viewWithTag:102];
+        
+        nameLabel.text = weed.name;
+        properNameLabel.text = weed.properName;
+        weedImageView.image = [weed primaryImage];
+    }
+    
+
     return cell;
 }
 
-- (IBAction)exitDetailView:(UIStoryboardSegue *)sender {
-    
-}
+
 
 
 @end
