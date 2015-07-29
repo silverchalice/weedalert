@@ -199,7 +199,7 @@ NSDictionary *germMonthValues;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-        return CGSizeMake(320, 240);
+        return CGSizeMake(375, 240);
 }
 
 

@@ -40,6 +40,7 @@
 		31307F2E18B00CA80032DDA7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31307F2D18B00CA80032DDA7 /* QuartzCore.framework */; };
 		31307F3018B00CB10032DDA7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31307F2F18B00CB10032DDA7 /* Security.framework */; };
 		313324781910A6E10044EACB /* Family.m in Sources */ = {isa = PBXBuildFile; fileRef = 313324771910A6E10044EACB /* Family.m */; };
+		3138CA781B690FD900242B61 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3138CA771B690FD900242B61 /* Launch Screen.xib */; };
 		314184261803732D00FD77C3 /* WAWeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 314184251803732D00FD77C3 /* WAWeedTableViewCell.m */; };
 		314184291803746200FD77C3 /* WAWeedDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 314184281803746200FD77C3 /* WAWeedDetailViewController.m */; };
 		3146555C17FCE49000D95DB6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3146555B17FCE49000D95DB6 /* CoreData.framework */; };
@@ -1195,6 +1196,7 @@
 		31307F2F18B00CB10032DDA7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		313324761910A6E10044EACB /* Family.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Family.h; sourceTree = "<group>"; };
 		313324771910A6E10044EACB /* Family.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Family.m; sourceTree = "<group>"; };
+		3138CA771B690FD900242B61 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		314184241803732D00FD77C3 /* WAWeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WAWeedTableViewCell.h; sourceTree = "<group>"; };
 		314184251803732D00FD77C3 /* WAWeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WAWeedTableViewCell.m; sourceTree = "<group>"; };
 		314184271803746200FD77C3 /* WAWeedDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WAWeedDetailViewController.h; sourceTree = "<group>"; };
@@ -1879,6 +1881,7 @@
 			children = (
 				3123F6BA173D84B900D5B823 /* Images */,
 				3123F6A4173C490100D5B823 /* MainStoryboard_iPhone.storyboard */,
+				3138CA771B690FD900242B61 /* Launch Screen.xib */,
 				31B8A3B118B7FD1500D7C4F2 /* MainStoryboard_iPad.storyboard */,
 				314184241803732D00FD77C3 /* WAWeedTableViewCell.h */,
 				314184251803732D00FD77C3 /* WAWeedTableViewCell.m */,
@@ -2921,6 +2924,7 @@
 				31BE227E1899B0B30030C13F /* 5203.png in Resources */,
 				31BE21D41899B0B30030C13F /* 2902.png in Resources */,
 				31BE23881899B0B30030C13F /* 9102.png in Resources */,
+				3138CA781B690FD900242B61 /* Launch Screen.xib in Resources */,
 				31BE1AE01898655B0030C13F /* abx42.jpg in Resources */,
 				31BE232A1899B0B30030C13F /* 7602.png in Resources */,
 				31BE21DA1899B0B30030C13F /* 3001.png in Resources */,
